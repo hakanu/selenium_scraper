@@ -16,7 +16,8 @@ display.start()
 
 
 def GetPatternFromGivenUrl(
-    url='', regex_pattern='<param name="flashvars" value="(.+)" />'):
+    url='', regex_pattern='<param name="flashvars" value="(.+)" />',
+    element_name_to_check='flashvars'):
   """Heavy method to scrape the web pages with ajax calls, lazy loads and flash
   content.
   
@@ -39,7 +40,7 @@ def GetPatternFromGivenUrl(
   with closing(webdriver.Chrome('/home/haku/chromedriver')) as browser:  # Fake chrome.
     browser.get(url)
     WebDriverWait(browser, timeout=30).until(
-        EC.presence_of_element_located((By.NAME, "flashvars")))
+        EC.presence_of_element_located((By.NAME, element_name_to_check)))
     page_source = browser.page_source
     #print '-----------------\n', page_source
     print 'Finished'
